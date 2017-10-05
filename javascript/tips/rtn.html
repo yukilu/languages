@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fn</title>
+    <script type="text/javascript">
+        /* 这样会报错，rtn is not defined，应该是赋值操作符是从右往左的，所以右边的函数先调用，此时访问rtn时，左边的rtn还未声明
+         * let rtn = test(() => {
+         *     console.log(rtn);
+         * });
+         */
+
+        // 这种写法就没问题，可以运行
+        let rtn;
+        rtn = test(() => {
+            console.log(rtn);  // undefined
+        });
+
+        console.log(rtn);  // 0
+
+        function test(fn) {
+            fn();
+            return 0;
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this</title>
+    <script type="text/javascript">
+        'use strict';
+
+        window.prop = 'global';
+
+        function inner() {
+            console.log(this);
+        }
+
+        console.log(this);  // global，不论严格非严格模式，全局作用域下this都指向window
+        inner();  // 非严格模式下指向window，严格模式下this指向undefined
+
+        const o = {
+            prop: 'o',
+            outer() {
+                console.log('outer', this);  // 当o.outer()调用时，this指向o
+                inner();  // inner前面没有对象，非严格模式下this指向window，这本身是个设计错误的，所以严格模式下，this为undefined
+            }
+        };
+
+        o.outer();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

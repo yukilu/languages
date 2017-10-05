@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>catch</title>
+    <script type="text/javascript">
+        function syncError() {  // 没有回调函数时，获取错误
+            try {
+                throw 'syncError';
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        function asyncErrorRight() {  // 获取回调函数发生错误的正确方法
+            setTimeout(() => {
+                try {
+                    throw 'asyncErrorRight';
+                } catch (err) {
+                    console.log(err);
+                }
+            }, 0);
+        }
+
+        // 获取回调函数发生错误的错误方法，setTimeout只是将回调函数加入回掉函数队列，回调函数此时不会运行，所以不论其中是否有错误，
+        // 这里的catch都无法获取，只能如上，直接在回调函数内获取错误才有用
+        function asyncErrorWrong() {
+            try {
+                setTimeout(() => {
+                    throw 'asyncErrorWrong';
+                }, 0);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        syncError();
+        asyncErrorRight();
+        asyncErrorWrong();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

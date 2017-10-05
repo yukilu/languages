@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>error_callback</title>
+    <script type="text/javascript">
+        // 抛出错误之前的代码都会运行，包括回调函数，抛出之后的代码都不会运行
+        function inner() {
+            console.log('in-0');
+            throw new Error('error');
+            console.log('in-1');
+        }
+
+        function outer() {
+            console.log('out-0')
+            inner();
+            console.log('out-1');
+        }
+
+        // 在chrome和firefox中，即使抛出错误，在抛出错误之前加载的回调函数还是会运行(node中并不会)，但是下面的callback-1在抛出错误之后，
+        // 就不会运行，因为其在抛出错误后，setTimeout并不会运行，也就不会将其加入回调函数队列
+        setTimeout(()=> console.log('callback-0'), 0);
+
+        outer();
+        setTimeout(()=> console.log('callback-1'), 0);
+        console.log('global');
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

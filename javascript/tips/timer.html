@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>callbacks</title>
+    <script type="text/javascript">
+        // 定时器的不稳定性
+
+        // setTimeout比setInterval稳定性好些，试了很多次次序都是对的
+        setTimeout(() => console.log(0), 1000);
+        setTimeout(() => console.log(1), 1000);
+
+        // setInterval稳定性不好，顺序会乱
+        setInterval(() => console.log(0), 1000);
+        setInterval(() => console.log(1), 1000);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
