@@ -7,7 +7,7 @@ public class TypeConversion {
         // f.getId(); // 这是错误的，虽然f指向的值是Son类型的，但是f变量是Father类型的，只能调用Father类型存在的方法
         // 调用Son类型上的方法，注意此处是将父类变量f赋给子类，必须通过强制类型转换，将f变量转成实际指向的Son类型变量s，类型不匹配时会报错
         Son s = (Son) f;
-        s.getId();
+        s.printId();
     }
 }
 
@@ -27,5 +27,5 @@ class Son extends Father {
         id = i;
     }
     public void print() { System.out.println(super.getName()); }
-    public void getId() { System.out.println(id); }
+    public void printId() { System.out.println(id); }
 }
