@@ -118,7 +118,7 @@ interface MySelectableControl extends MyControl {
 
 class MyImageA implements MySelectableControl { // 将上述包含三个成员的接口实现
     public state: any;
-    select() { }
+    select(): void { }
     f(): number { return 1; }
 }
 
@@ -149,10 +149,10 @@ interface SelectableControl extends Control { // 继承了类Control的私有成
 }
 
 class Button extends Control implements SelectableControl { // Button是Control的子类，含有Control的私有成员state，可以实现上述接口
-    select() { }
+    select(): void { }
 }
 
 class MyImage implements SelectableControl { // 错误，不能实现上述接口
-    private state: any;  // 私有成员兼容性问题，无法该state与Control类中的state不同
-    select() { }
+    private state: any;  // 私有成员兼容性问题，该state与Control类中的state不同
+    select(): void { }
 }
