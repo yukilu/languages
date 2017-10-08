@@ -132,7 +132,7 @@ let pa: PublicA = new PublicA;
 let pb: PublicB = new PublicB;
 pa = pb;  // 类型相同，可以互通
 
-// 当存在私有成员时，即使类型相同，也认为不同类之间私有成员时不同的
+// 当存在私有成员时，即使类型相同，也认为不同类之间私有成员是不同的
 class PrivateA { private a: number; }
 class PrivateB { private b: number; }
 let pra: PrivateA = new PrivateA;
