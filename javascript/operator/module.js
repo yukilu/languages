@@ -10,10 +10,11 @@
   * export及import后面跟的大括号{}不是字面量对象的简写形式，而是一个代码块，里面包含了as及逗号操作符等表达式
   * 就如同if,switch,函数等后面跟的大括号的作用，大括号里是代码块，export，import是个关键字，后面的大括号中的内容直接解读为代码
   *
-  *export default
-  *export default不同于export，其后除了跟声明(匿名也可以)，还可以直接跟变量或者值，但是default只能有一个
+  *export default与export异同
+  *1. export default与export其后都可以跟声明，但是export default后面跟的声明可以匿名，export不行
+  *2. export default后可以直接跟变量或具体值，不需要大括号，而export后面跟变量时需要大括号
   *
-  * export后面跟变量时要用大括号，export default不用的一点理解，猜测可能是为了统一代码格式
+  * export后面跟变量时要用大括号，而export default不用的原因，猜测可能是为了统一代码格式
   * 变量别名和多个变量的情况，由于用到了as及逗号操作符，是需要用大括号包起来作为一个代码块更清晰，特殊的就是一个变量且不需要别名的情况，
   * 可能是为了统一代码格式，所以就规定了export后面跟变量必须用大括号，包括一个变量且不需要别名的特殊情况，而export default后面跟变量时
   * 只存在一 种一个变量且不需要别名的情况(别名默认就是default)，并且其格式与default后面跟声明和值的格式相同，可能也是为了统一代码，
