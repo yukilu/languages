@@ -7,9 +7,18 @@
   * 2. 直接跟字面量对象 export { a: 0 };   { a: 0 }会被解读为a: 0代码，而不是字面量对象{ a: 0 }
   * 
   * export { member }, import { member } from 'module-name'是最基本的用法
-  * export及import后面跟的{}大括号不是字面量对象的简写形式，而是将大括号作为一个代码块，里面包含了as及逗号操作符
-  * 就如同if,switch,函数等后面跟的大括号的作用，export，import是个关键字，后面的大括号中的内容直接解读为代码
-  * 
+  * export及import后面跟的大括号{}不是字面量对象的简写形式，而是一个代码块，里面包含了as及逗号操作符等表达式
+  * 就如同if,switch,函数等后面跟的大括号的作用，大括号里是代码块，export，import是个关键字，后面的大括号中的内容直接解读为代码
+  *
+  *export default
+  *export default不同于export，其后除了跟声明(匿名也可以)，还可以直接跟变量或者值，但是default只能有一个
+  *
+  * export后面跟变量时要用大括号，export default不用的一点理解，猜测可能是为了统一代码格式
+  * 变量别名和多个变量的情况，由于用到了as及逗号操作符，是需要用大括号包起来作为一个代码块更清晰，特殊的就是一个变量且不需要别名的情况，
+  * 可能是为了统一代码格式，所以就规定了export后面跟变量必须用大括号，包括一个变量且不需要别名的特殊情况，而export default后面跟变量时
+  * 只存在一 种一个变量且不需要别名的情况(别名默认就是default)，并且其格式与default后面跟声明和值的格式相同，可能也是为了统一代码，
+  * export default的格式就统一成了export default xxx，故而后面直接跟变量时就不要大括号了
+  * ，
   * 还有个大括号解读为代码的一种特殊情况为，行首的大括号{}也会解读为代码，所以写在行首时，{}.toString()是不对的(不写在行首这种
   * 写法自然没问题)， 要写成({}).toString()，因为在行首时，{}不会被解读为空对象，而是被解读为代码块的大括号，自然代码块为空，
   * 后面也不能跟点操作符，为了不被解读为代码块，所以第一个字符不能是大括号，得用小括号括起来，或者用！ ~ 等位操作符也可
@@ -17,12 +26,12 @@
 
 // export
 
-// 1.export{ member,... }
-// 下面两种写法是等价的，直接声明或者定义时export
+// 1.export{ member,... }，下面两种写法是等价的
+// 1)直接声明或者定义时export
 export const member = 0;
 export function f() {};  // 必须指定名字，不能为匿名
 
-// 或者先声明变量，然后通过大括号{}export
+// 2)先声明变量，然后通过大括号{}export
 const member = 0;
 function f() {}
 export { member, f };
@@ -35,9 +44,17 @@ export member;  //正确写法为 export { member }
 const member = 0;
 export { member as alias };
 
-// 2.export default与上面export不同，不需要大括号{}，直接跟变量，函数或类等，并且函数，类可以匿名，即省略函数名或类名，default只能有一个
-export default function f() {};  // 等同于 export { f as default };
+// 2.export default与export不同，不需要大括号{}，除了可以跟声明，还可以直接跟变量和值
+// 1) 声明或定义时export default，可以匿名(应该是将匿名函数或类直接与default或相关变量名联系起来了，所以可以匿名)
+export default function f() {};  // 可以理解为 export { f as default };
 export default  function () {};  // 类，函数名字皆可省略
+
+// 2) 可以直接跟变量
+let defaultMember = 0;
+export default defaultMember;  // 与直接export不同，不需要大括号，同上，可以理解为 export { defaultMember as default }
+
+// 3) 可以跟具体值，从匿名角度看就是匿名的基本类型变量(将具体值与default或相关变量名联系起来了)
+export default 1;
 
 //3. export from
 export * from 'module-name';
