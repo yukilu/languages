@@ -12,7 +12,8 @@
   *
   *export default与export异同
   *1. export default与export其后都可以跟声明，但是export default后面跟的声明可以匿名，export不行
-  *2. export default后可以直接跟变量或具体值，不需要大括号，而export后面跟变量时需要大括号
+  *2. export default后可以直接跟变量，不需要大括号，而export后面跟变量时需要大括号
+  *3. export default后可以跟值，而export不行
   *
   * export后面跟变量时要用大括号，而export default不用的原因，猜测可能是为了统一代码格式
   * 变量别名和多个变量的情况，由于用到了as及逗号操作符，是需要用大括号包起来作为一个代码块更清晰，特殊的就是一个变量且不需要别名的情况，
