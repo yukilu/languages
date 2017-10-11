@@ -1,6 +1,6 @@
 // 不使用泛型接口或泛型类时，就要经常强制类型转换参数，使用泛型之后就不需要再强制类型转换了
 
-public class Generics {
+public class Generic {
     public static void main(String[] args) {
         MyClass a = new MyClass(10);
         MyClass b = new MyClass(20);
