@@ -4,7 +4,7 @@
  * 2. 作为对象，可以声明成Function类
  */
 
-function fn(arg: number): number { return arg }
+function fn(arg: number): number { return arg; }
 
 // 1. 声明为函数形式的函数指针
 let f: (arg: number) => number = fn;
