@@ -1,5 +1,5 @@
-#with的使用方法
-#参考链接 https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html
+# with的使用方法
+# 参考链接 https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/index.html
 
 # with context_expression [as target(s)]:
 #     with-body
