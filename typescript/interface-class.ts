@@ -1,10 +1,15 @@
 /* interface与class的区别
- * 1. 当只作为对象的类型声明时，作用都相同，如ta,tb，甚至可以像t一样，直接后面跟类型声明
- * 2. interface不能new，而class可以new，所以两者用途不同
- *    1) 当声明字面量对象或者函数类型时，用interface
+ * 1. 当只需要为某个变量声明类型，用interface，如果用类来声明，你会为此创建一个类，而大多数情况下，这是不必要的，因为大部分情况下，
+ * 需要声明的变量结构都比较简单，不需要为此特地创建一个类，类比较适合用于复杂的结构。
+ *    而当真的需要创建一个类时，类的实例对应的变量就应该声明为该类的类型。
+ *    1) 当声明一个变量，而又不需要为此特地创建一个类时，用interface，如声明字面量对象
  *       interface A { a: number }    let ta: A = { a: 0 };
- *    2) 当声明用new来创建的对象时，用class
+ *    2) 当需要创建一个类时，声明用new来创建的实例时，用对应的class
  *       class A { a: number }    let ta: A = new A();
+ * 
+ * 2. 若已存在的类和接口的数据结构一样时，那么类和接口都可以声明具有同样数据结构的变量，两者互相通用，
+ * 但是，interface不能new，而class可以new。
+ * 
  * 3.类只能单继承类，但类可以多继承接口，同时接口之间也可以互相继承(extends)，接口还能继承类
  *    subClass extends classA
  *    classA implements interfaceA    classB implements interfaceA, interfaceB
@@ -34,21 +39,21 @@
  *           https://www.tslang.cn/docs/handbook/classes.html
  */
 
-interface TestA {
+interface InterfaceA {
     a: number;
     b: string;
 }
 
-class TestB {
+class ClassB {
     a: number;
     b: string;
 }
 
 let t: { a: number; b: string } = { a: 0, b: 'b' };  // 直接在后面跟字面量对象式的类型声明
 
-let ta: TestA = { a: 0, b: 'b' }; // 字面量对象
-// let taa: TestA = new TestA();  // interface不能new
-let taa: TestA = new TestB; // new TestB()括号可省略，此处new了一个对象，只要符合接口类型也是可以的
+let ta: InterfaceA = { a: 0, b: 'b' }; // 字面量对象
+// let taa: InterfaceA = new InterfaceA();  // interface不能new
+let taa: InterfaceA = new ClassB; // new TestB()括号可省略，此处new了一个对象，只要符合接口类型也是可以的
 
-let tb: TestB = { a: 0, b: 'b' };  // 字面量对象，此处class作用与interface同
-let tbb: TestB = new TestB();  // class可以new实例，而interface不能
+let tb: ClassB = { a: 0, b: 'b' };  // 字面量对象，此处class作用与interface同
+let tbb: ClassB = new ClassB();  // class可以new实例，而interface不能
