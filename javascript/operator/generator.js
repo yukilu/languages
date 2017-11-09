@@ -22,15 +22,16 @@ function* gen() {
 let it = gen();
 it.next();  // { value: 1, done: false }
 it.next();  // { value: 2, done: false }
-// 注意到这里才认为迭代结束，虽然在上一个next时候，好像已经到代码结束位置了，
-// 但是实际上上面函数还会默认返回一个undefined，所以yield 2并未结束，等同于以下函数gene
+// 注意到下面才认为迭代结束，虽然在上一个next时候，好像已经到代码结束位置了，
+// 但是实际上上面函数还会默认返回一个undefined，这也是为什么此次的value是undefined，因为不写return，默认返回的是undefined
+// 所以yield 2并未结束，gen函数等同于以下函数gene
 it.next();  // { value: undefined, done: true }
 
 // gen函数的完整形式，gen只是下述函数省略return的简写形式
 function* gene() {
     yield 1;
     yield 2;
-    return undefined;  // 结束，显式返回undefined
+    return undefined;  // 结束，显式返回undefined，所以最后一个next返回的value值为undefined
 }
 
 let iter = gene();
