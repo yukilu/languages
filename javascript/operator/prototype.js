@@ -26,6 +26,15 @@ Object instanceof Function
 // 而Object.prototype并非由Object自身构造，作为原型链的顶层，其__proto__是null
 Object.prototype.__proto__ == null;
 
+// Object构造函数是Function类的一个实例，而Function的父类是Object，逻辑推理可知Object是属于Object类的
+// 从原型链角度来看
+Object.__proto__ == Function.prototype;  // Object instanceof Function
+Function.prototype.__proto__ == Object.prototype;  // Function.prototype instanceof Object
+// 可得
+Object.__proto__.__proto__ == Object.prototype;
+// 即Object的原型链上存在Object.prototype，即Object本身属于Object类
+Object instanceof Object;
+
 
 // 来查看Function构造函数
 
@@ -43,16 +52,12 @@ Function.prototype instanceof Object;
 // 由于任意函数都是Function类的实例，而Object又是Function的父类，所以任意函数(包括Function本身)都是Object类的
 A.__proto__ == Function.prototype;
 Funciton.prototype.__proto__ == Object.prototype;
-// 由上可以推到出Object.prototype存在于任意函数(包括Function本身)的原型链上，这也就是为什么说函数也是对象
+// 由上可以推导出Object.prototype存在于任意函数(包括Function本身)的原型链上，这也就是为什么说函数也是对象
+// 而任意对象(Object.create(null)和Object.prototype除外)的原型链上也存在Object.prototype，所以一切皆对象
 A.__proto__.__proto__ == Object.prototype;
 A instanceof Object;
 
-// 而任意对象(Object.create(null)和Object.prototype除外)的原型链上也存在Object.prototype，
-
-
-// 由 Function.__proto__ == Function.prototype即Function是自身的一个实例，可以推导出的一些神奇的特性
-
-// 1. Function是Function类的一个实例，又Function的父类是Object，逻辑推理可知Function是属于Object类的
+// Function本身是Function类的一个实例，又Function的父类是Object，逻辑推理可知Function是属于Object类的
 // 本质上要从原型链角度看，以上关系翻译成原型链如下
 Function.__proto__ == Function.prototype;  // Function instanceof Function
 Function.prototype.__proto__ == Object.prototype  // Function.prototype instanceof Object
@@ -61,14 +66,6 @@ Function.__proto__.__proto__ == Object.prototype;
 // 即Function的原型链上存在Object.prototype，即Function也属于Object类
 Function instanceof Object;
 
-// 2. Object构造函数是Function类的一个实例，而Function的父类是Object，逻辑推理可知Object是属于Object类的
-// 从原型链角度来看
-Object.__proto__ == Function.prototype;  // Object instanceof Function
-Function.prototype.__proto__ == Object.prototype;  // Function.prototype instanceof Object
-// 可得
-Object.__proto__.__proto__ == Object.prototype;
-// 即Object的原型链上存在Object.prototype，即Object本身属于Object类
-Object instanceof Object;
 
 /* 综上：
   1. 任意函数(包括Function自身)都是Function类的
