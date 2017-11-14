@@ -1,4 +1,29 @@
-// 来理一下js中各函数及原型对象间的关系，以及一些奇特的特性
+// 考虑以下代码
+function F() { }  // 构造函数F
+let f = new F;  // 构造函数的一个实例f
+f instanceof F;  // true
+let prevPrototype = F.prototype;  // 构造函数伴生的原型对象
+let nextPrototype = { };
+F.prototype = nextPrototype;  // 将构造函数F的原型对象指向另一个对象
+f instanceof F;  // false
+f.__ptoto__ == F.prototype;  // false
+f.__proto__ == prevPrototype;  // true
+
+/* 以上示例中，在F没改变原型对象前，f是F类的，而当F.prototype指向另一个对象时，f就不是F类的，因为f.__proto__还是指向原来的prevPrototype
+ * 所以说，在js中，类这个说法其实是没意义的，类只是只某一个实例的__proto__相对应的函数而已，而有时候这个函数根本不存在，比如这个例子中
+ * 当F改变了prototype时，原来伴生的原型对象prevPrototype就没有函数与其对应，则f也不能说成是什么类的实例了
+ * 
+ * 还有个例子就是es6中的继承，S extends F { }，设S的实例为s，则s.__proto__ == F.prototype，构成了原型链，可以说s是S类的，
+ * F是S类的父类，s也是F类的，但是es6中的继承还有一层就是S.__proto__ == F，所以S可以继承F上的静态方法，但是F本身就是个函数，他并不是任何
+ * 构造函数的prototype，则S也没办法说成是什么类的
+ * 
+ * 所以在js中类这个说法并没有意义，只是为了对应java, C++这种面向对象的概念罢了，实际上js中只有原型链，所有的关系都是基于原型链的
+ * 构造函数在构造了实例之后就与实例没有关系了，实例只和他的__proto__发生关系，构造函数只是在构造对象的时候起一个初始化的作用，对于
+ * 已经存在的对象来说，对应的构造函数与其关系并不大，甚至有些实例的__proto__根本不存在对应的构造函数
+ */
+
+
+// 下面来理一下js中各函数及原型对象间的关系，以及一些奇特的特性
 // 以下的 ==, instanceof 返回值都是true
 
 // 先来最简单的构造函数及其实例
