@@ -1,4 +1,5 @@
 /* for...of...循环中，for (let v of it) {...}，循环中真正使用的是it[Symbol.iterator]()返回的对象，对其调用next函数
+ *
  * for (let v of it) {...}，实际过程如下
  * const iterator = it[Symbol.iterator]()
  * let result = iterator.next()
@@ -9,9 +10,9 @@
  * 还要给可迭代对象本身定义一个[Symbol.iterator]函数来返回自身，比如生成器函数返回的可迭代对象，
  * 
  * 总结：
- * 1. 当for...of...或...操作符是作用于定义了[Symbol.iterator]函数(返回值为迭代器)的对象
- * 2. 当for...of...或...操作符作用于迭代器时，并没有真的直接作用于迭代器，而还是通过调用迭代器的[Symbol.iterator]函数来获得其迭代器
- * 自身来间接作用于迭代器的，所以这就是为什么有些迭代器还要再定义一个返回自身的[Symbol.iterator]函数
+ * 1. for...of...或...操作符是作用于定义了[Symbol.iterator]函数(返回值为迭代器)的对象
+ * 2. for...of...或...操作符作用于迭代器时，并没有真的直接作用于迭代器，而还是通过调用迭代器的[Symbol.iterator]函数，来获得返回值
+ * 为迭代器自身，间接作用于迭代器，所以这就是为什么有些迭代器还要再定义一个返回自身的[Symbol.iterator]函数
  */
 let o = {
     n: 0,
