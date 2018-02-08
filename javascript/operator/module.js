@@ -1,13 +1,29 @@
 /* es6的模块化标准，阐释了export，import的具体用法
-  * export后面必须跟声明或者表达式，不能是变量或者字面量对象
-  * 1. 声明: export const a = 0; export function f() {}; export class C {};
-  * 2. 表达式(即先声明变量，再通过export后面跟大括号{}): const a = 0; function f() {}; class C {}; export { a, f, C };
+  *
+  * export
+  * 1.export，其后必须跟声明或者表达式，不能是变量或者字面量对象
+  *   1) 声明: export const a = 0; export function f() {}; export class C {};
+  *   2) 表达式(包含在大括号{}中): const a = 0; function f() {}; class C {}; export { a, f, C };
+  * 2.export default，其后可以跟声明(可匿名)，变量或值
+  *   1) 声明: export default function f() {};
+  *      匿名声明: export default function() {};
+  *   2) 变量: const a = 0; export default a;
+  *   3) 值: export default 0;
+  * 
+  * import
+  * 1.import，其后跟表达式(包含在大括号{}中)
+  *   import { f } from 'module-name';
+  * 2.import default，其后直接跟变量，该变量的值即为模块中export default的内容
+  *   import f from 'module-name';
+  * 3.import，其后直接跟模块，具有副作用的导入，但并不关心导出
+  *   import 'module';
+  * 
   * 错误示例:
   * 1. 直接跟变量 const a = 0; export a;
   * 2. 直接跟字面量对象 export { a: 0 };   { a: 0 }会被解读为a: 0代码，而不是字面量对象{ a: 0 }
   * 
   * export { member }, import { member } from 'module-name'是最基本的用法
-  * export及import后面跟的大括号{}不是字面量对象的简写形式，而是一个代码块，里面包含了as及逗号操作符等表达式
+  * export及import后面跟的大括号{}并不是字面量对象的简写形式，而是表示一个包含as及逗号操作符等表达式的代码块
   * 就如同if,switch,函数等后面跟的大括号的作用，大括号里是代码块，export，import是个关键字，后面的大括号中的内容直接解读为代码
   *
   *export default与export异同
@@ -15,12 +31,6 @@
   *2. export default后可以直接跟变量，不需要大括号，而export后面跟变量时需要大括号
   *3. export default后可以跟值，而export不行
   *
-  * export后面跟变量时要用大括号，而export default不用的原因，猜测可能是为了统一代码格式
-  * 变量别名和多个变量的情况，由于用到了as及逗号操作符，是需要用大括号包起来作为一个代码块更清晰，特殊的就是一个变量且不需要别名的情况，
-  * 可能是为了统一代码格式，所以就规定了export后面跟变量必须用大括号，包括一个变量且不需要别名的特殊情况，而export default后面跟变量时
-  * 只存在一 种一个变量且不需要别名的情况(别名默认就是default)，并且其格式与default后面跟声明和值的格式相同，可能也是为了统一代码，
-  * export default的格式就统一成了export default xxx，故而后面直接跟变量时就不要大括号了
-  * ，
   * 还有个大括号解读为代码的一种特殊情况为，行首的大括号{}也会解读为代码，所以写在行首时，{}.toString()是不对的(不写在行首这种
   * 写法自然没问题)， 要写成({}).toString()，因为在行首时，{}不会被解读为空对象，而是被解读为代码块的大括号，自然代码块为空，
   * 后面也不能跟点操作符，为了不被解读为代码块，所以第一个字符不能是大括号，得用小括号括起来，或者用！ ~ 等位操作符也可
@@ -73,4 +83,4 @@ import * as name from 'module-name';  // 相当于将模块内所有内容导出
 
 import defaultMember from 'module-name';   // 相当于 import { default as defaultMember } from 'module-name';
 
-import 'module-name';  // 导入整个模块
+import 'module-name';  // 具有副作用的导入模块，而不关心其导出或根本没有导出
