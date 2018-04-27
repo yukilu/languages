@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双飞翼布局</title>
+    <style>
+        div { height: 200px; }
+        /**/
+        .main { width: 100%; background: gray; float: left; }
+        .main-content { margin: 0 200px; background: #F00; }
+        .left { width: 200px; margin-left: -100%; background: #0F0; float: left; }
+        .right { width: 200px; margin-left: -200px; background: #00F; float: left; }
+    </style>
+</head>
+<body>
+    <!--讲解圣杯布局和双飞翼布局的链接-->
+    <!--http://www.cnblogs.com/star91/p/5773436.html-->
+    <!--http://www.cnblogs.com/woodk/p/5147085.html-->
+    
+    <!--main中间块优先渲染，所以放最上面，双飞翼较圣杯布局简单些，因为给main层嵌套了个main-content，给其一个margin，让两边空出来即可-->
+    <div class="main">
+        <div class="main-content">fuckfuck</div>
+    </div>
+    <!--三个块都是浮动，然后给左边块一个margin-left: 100%使其在左边界贴着上一行左边-->
+    <div class="left"></div>
+    <!--右边块给个margin-left负的本身的宽度值，使其正好位于上一行，右边界贴着上一行右边-->
+    <div class="right"></div>
+</body>
+</html>

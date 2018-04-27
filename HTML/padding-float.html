@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /*浮动后的元素位置始终在父元素content范围内，不会飘到padding上去*/
+        #root { width: 100%; height: 600px; background: gray; padding: 100px; }
+        .test { width: 200px; height: 200px; background: #F00; float: left; }
+        .green { background: #0F0; }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div class="test"></div>
+        <div class="test green"></div>
+    </div>
+</body>
+</html>
